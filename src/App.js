@@ -8,15 +8,30 @@ import {
 } from "@material-ui/core";
 import InfoBox from "./components/InfoBox";
 import Map from "./components/Map";
+import Table from "./components/Table";
+import LineGraph from "./components/LineGraph";
+import { sortData } from "./utility";
 import "./App.css";
+import "leaflet/dist/leaflet.css";
 
 function App() {
-  //useState hook
+  //useState hooks
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("Worldwide");
+  const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
 
-  
+  //API for worldwide data - https://https://disease.sh/v3/covid-19/all
+  //This hook is to ensure that our page loads with the worldwide stats.
+  useEffect(() => {
+    fetch(`https://disease.sh/v3/covid-19/all`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
+  }, []);
 
   useEffect(() => {
     /*The code here will run when the component loads or when
@@ -36,42 +51,46 @@ function App() {
           });
 
           setCountries(countries);
+          //We are getting the entire data since we want the countries to get sorted according to cases.
+          const sortedData = sortData(data); //sorted array received using sortData function (from utility file created by us)
+          setTableData(sortedData);
         });
     };
 
     getCountriesData();
   }, []);
 
-
   //To update the country name in dropdown menu once its clicked
   const onCountryChange = (event) => {
     const countryCode = event.target.value;
-    
 
     //API for worldwide data - https://https://disease.sh/v3/covid-19/all
     //API for specific country data - https://https://disease.sh/v3/covid-19/countries/COUNTRY_CODE
 
     const url =
-      countryCode === "Worldwide"
-        ? "https://https://disease.sh/v3/covid-19/all"
+      countryCode === "worldwide"
+        ? "https://disease.sh/v3/covid-19/all"
         : `https://disease.sh/v3/covid-19/countries/${countryCode}?strict=true`;
 
-      console.log(url);
-      console.log(countryCode);
+    console.log(url);
+    console.log(countryCode);
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
+        
+        countryCode === "worldwide"
+          ? setMapCenter([34.80746, -40.4796])
+          : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        countryCode === "worldwide" ? setMapZoom(3) : setMapZoom(4);
       });
   };
 
-  console.log(countryInfo);
- 
+
   //API for getting all countries -https://disease.sh/v3/covid-19/countries
 
   //useEffect - runs a piece of code based on a given condition
-
 
   return (
     /*Structure */
@@ -89,7 +108,7 @@ function App() {
               onChange={onCountryChange}
               value={country}
             >
-              <MenuItem value="Worldwide">Worldwide</MenuItem>
+              <MenuItem value="worldwide">worldwide</MenuItem>
 
               {countries.map((country) => {
                 return (
@@ -122,14 +141,16 @@ function App() {
 
         {/* Map */}
 
-        <Map />
+        <Map center={mapCenter} zoom={mapZoom} />
       </div>
       <Card className="app__right">
         <CardContent>
-          {/*Tavle*/}
+          {/*Table*/}
           <h3>Live cases by country</h3>
+          <Table countries={tableData} />
           {/*Graph*/}
           <h3>Worldwide new cases</h3>
+          <LineGraph />
         </CardContent>
       </Card>
     </div>

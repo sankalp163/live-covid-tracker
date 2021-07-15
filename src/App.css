@@ -1,9 +1,11 @@
+@import './styles/Table.css';
+
 * {
   margin: 0px;
 }
 
 body {
-  background-color: #f5f6fa;
+  background-color: #d1faf8;
 }
 
 .app {
@@ -15,6 +17,7 @@ body {
 .app__left {
   flex: 0.9;
 }
+
 .app__header {
   display: flex;
   align-items: center;
@@ -28,8 +31,12 @@ body {
   justify-content: space-between;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 1100px) {
   .app {
     flex-direction: column;
   }
+}
+
+.linegraph{
+  height: 275px;
 }
