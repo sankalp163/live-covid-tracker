@@ -10,7 +10,7 @@ import InfoBox from "./components/InfoBox";
 import Map from "./components/Map";
 import Table from "./components/Table";
 import LineGraph from "./components/LineGraph";
-import { sortData } from "./utility";
+import { sortData, prettyStats } from "./utility";
 import "./App.css";
 import "leaflet/dist/leaflet.css";
 
@@ -22,6 +22,8 @@ function App() {
   const [tableData, setTableData] = useState([]);
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
   const [mapZoom, setMapZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState("cases");
 
   //API for worldwide data - https://https://disease.sh/v3/covid-19/all
   //This hook is to ensure that our page loads with the worldwide stats.
@@ -54,6 +56,7 @@ function App() {
           //We are getting the entire data since we want the countries to get sorted according to cases.
           const sortedData = sortData(data); //sorted array received using sortData function (from utility file created by us)
           setTableData(sortedData);
+          setMapCountries(data);
         });
     };
 
@@ -123,25 +126,28 @@ function App() {
 
         <div className="app__stats">
           <InfoBox
+            onClick={e => setCasesType("cases")}
             title="CoronaVirus Cases"
-            cases={countryInfo.todayCases}
-            totalCases={countryInfo.cases}
+            cases={prettyStats(countryInfo.todayCases)}
+            totalCases={prettyStats(countryInfo.cases)}
           />
           <InfoBox
+            onClick={e => setCasesType("recovered")}
             title="Recovered"
-            cases={countryInfo.todayRecovered}
-            totalCases={countryInfo.recovered}
+            cases={prettyStats(countryInfo.todayRecovered)}
+            totalCases={prettyStats(countryInfo.recovered)}
           />
           <InfoBox
+            onClick={e => setCasesType("deaths")}
             title="Deaths"
-            cases={countryInfo.todayDeaths}
-            totalCases={countryInfo.deaths}
+            cases={prettyStats(countryInfo.todayDeaths)}
+            totalCases={prettyStats(countryInfo.deaths)}
           />
         </div>
 
         {/* Map */}
 
-        <Map center={mapCenter} zoom={mapZoom} />
+        <Map casesType={casesType} countries ={mapCountries} center={mapCenter} zoom={mapZoom} />
       </div>
       <Card className="app__right">
         <CardContent>
