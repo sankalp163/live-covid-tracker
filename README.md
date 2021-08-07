@@ -1,3 +1,21 @@
+<p>
+<img  alt="HTML5" width="66px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" />
+<img  alt="CSS3" width="66x" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" />
+<img  alt="React" width="66px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
+<img  alt="Material UI" width="66px" src="https://material-ui.com/static/logo.png" />
+<img  alt="Leaflet" width="66px" src="https://miro.medium.com/max/480/1*YTnIluRNB5WWn-HhPIkoWQ.png" />
+<img  alt="Leaflet" width="66px" src="https://avatars.githubusercontent.com/u/10342521?s=280&v=4" />
+</p>
+
+# Overview 
+A Live Covid Tracker Application built using Material UI. It fetches map from React Leaflet, and Covid-19 data from Disease.sh API We can access data from specific countries via dropdown and easily view the extent of Covid-19 spread in that particular region.
+
+# Screenshots 
+<br><br>
+![screenshot-1](https://user-images.githubusercontent.com/56267419/128616053-d4bac7bb-0176-407c-b215-a367eed2774b.png)
+
+<br><br>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
