@@ -4,7 +4,7 @@
 <img  alt="React" width="66px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
 <img  alt="Material UI" width="66px" src="https://material-ui.com/static/logo.png" />
 <img  alt="Leaflet" width="66px" src="https://miro.medium.com/max/480/1*YTnIluRNB5WWn-HhPIkoWQ.png" />
-<img  alt="Leaflet" width="66px" src="https://avatars.githubusercontent.com/u/10342521?s=280&v=4" />
+<img  alt="ChartJS" width="66px" src="https://avatars.githubusercontent.com/u/10342521?s=280&v=4" />
 </p>
 
 # Overview 
